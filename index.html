@@ -6,6 +6,7 @@
   <title>Yusuf Properties | Premium Real Estate</title>
   <meta name="description" content="Discover premium luxury apartments with curated floor plans by Yusuf Properties. Contact us via Phone, Telegram, or WhatsApp today.">
 
+  <!-- Icon Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <style>
@@ -490,7 +491,7 @@
       font-size: 11px;
     }
 
-    /* PURE CSS CLICK OUTSIDE CLOSURE MECHANISM */
+    /* CLICK OUTSIDE CLOSURE MECHANISM */
     .detail-toggle-chk:checked ~ .expandable-details-content {
       max-height: 800px; 
     }
@@ -499,7 +500,7 @@
       display: block;
     }
 
-    /* FLOATING BOTTOM-RIGHT AI AGENT (FAB SYSTEM) */
+    /* FLOATING BOTTOM-RIGHT ROBOT AI AGENT (FAB SYSTEM) */
     .ai-agent-fab-holder {
       position: fixed;
       bottom: 25px;
@@ -522,7 +523,8 @@
       cursor: pointer;
       box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3);
       transition: transform 0.3s ease, background-color 0.3s ease;
-      overflow: hidden; /* Keeps image perfectly round */
+      color: #ffffff;
+      font-size: 24px;
     }
 
     .ai-agent-fab-btn:hover {
@@ -565,11 +567,13 @@
     .ai-avatar {
       width: 36px;
       height: 36px;
+      background: #0f172a;
+      color: #ffffff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      font-size: 14px;
     }
 
     .ai-title h4 {
@@ -588,12 +592,50 @@
       background: #f8f9fa;
       border-radius: 10px;
       padding: 12px;
-      min-height: 90px;
+      height: 140px;
+      overflow-y: auto;
       margin-bottom: 15px;
       font-size: 13px;
       line-height: 1.5;
       color: #475569;
       border: 1px solid rgba(15, 23, 42, 0.04);
+    }
+
+    /* NEW INTERACTIVE SEARCH/CHAT INPUT SYSTEM */
+    .ai-chat-input-wrapper {
+      display: flex;
+      gap: 6px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      padding: 4px 6px;
+      border-radius: 8px;
+      background: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .ai-chat-text-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: #0f172a;
+      padding: 6px;
+    }
+
+    .ai-chat-send-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .ai-chat-send-btn:hover {
+      background: #c5a880;
     }
 
     .ai-suggested-prompts {
@@ -1165,25 +1207,34 @@
     <!-- Backdrop to close card when user clicks anywhere outside -->
     <label for="ai-agent-toggle" class="ai-chat-overlay-backdrop"></label>
 
-    <!-- Circular Avatar Button -->
+    <!-- Clean, non-weird Robot FAB Button -->
     <label for="ai-agent-toggle" class="ai-agent-fab-btn">
-      <img src="headshot.jpg" alt="Yusuf Properties AI Agent" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <i class="fas fa-robot"></i>
     </label>
 
     <div class="ai-agent-chat-card">
       <div class="ai-header">
-        <!-- Matching Avatar Inside Chat Header -->
+        <!-- Matching Robot Inside Chat Header -->
         <div class="ai-avatar">
-          <img src="headshot.jpg" alt="Agent Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+          <i class="fas fa-robot"></i>
         </div>
         <div class="ai-title">
           <h4>Yusuf Properties Assistant</h4>
           <p>AI Concierge Agent • Online</p>
         </div>
       </div>
-      <div class="ai-chat-space">
-        Hello! I am your automated premium property concierge. I can instantly assist you with specific inquiries regarding pricing models, dynamic square footage alignments, or connect you with premium closing guidance. Select an option below to start:
+      
+      <!-- Interactive Chat Display Workspace -->
+      <div class="ai-chat-space" id="chatDisplayBox">
+        Hello! I am your automated premium property concierge. I can instantly assist you with specific inquiries regarding pricing models, layout specifications, or connect you directly with premium closing guidance. Type your custom query or select an option below:
       </div>
+
+      <!-- NEW: Interactive Text Chat Entry Point -->
+      <div class="ai-chat-input-wrapper">
+        <input type="text" id="userChatInput" class="ai-chat-text-input" placeholder="Ask about 1 bedroom, 3 bedroom...">
+        <button type="button" class="ai-chat-send-btn" onclick="processAgentQuery()">Send</button>
+      </div>
+
       <div class="ai-suggested-prompts">
         <a href="https://wa.me/251983796622?text=Hello,%20I'm%20interested%20in%20the%203%20Bedroom%20182.64m²%20apartment." target="_blank" class="ai-prompt-btn"><i class="fab fa-whatsapp"></i> Inquire about 182.64 m² Suite</a>
         <a href="https://wa.me/251983796622?text=Hello,%20I%20want%20to%20receive%20the%20pricing%20catalog%20for%20the%201%20Bedroom%20apartments." target="_blank" class="ai-prompt-btn"><i class="fab fa-whatsapp"></i> Request 1 Bed pricing catalog</a>
@@ -1191,6 +1242,42 @@
       </div>
     </div>
   </div>
+
+  <!-- Dynamic Chat Processing Logic Hook -->
+  <script>
+    function processAgentQuery() {
+      const inputField = document.getElementById('userChatInput');
+      const displayBox = document.getElementById('chatDisplayBox');
+      const query = inputField.value.trim().toLowerCase();
+      
+      if (!query) return;
+
+      // Reset prompt area with a loading simulated feel
+      displayBox.innerHTML = "Thinking...";
+
+      setTimeout(() => {
+        if (query.includes('1 bed') || query.includes('one bed')) {
+          displayBox.innerHTML = "<strong>AI Agent:</strong> We feature two premium 1-Bedroom architectural layouts:<br>• <strong>81.55 m² Layout:</strong> Urban Minimalist Studio with high efficiency.<br>• <strong>81.74 m² Layout:</strong> Contemporary Flat with dual ventilation.<br><br>Click the WhatsApp prompt button below to request pricing catalogs for these specific suites!";
+        } else if (query.includes('3 bed') || query.includes('three bed')) {
+          displayBox.innerHTML = "<strong>AI Agent:</strong> We offer two ultra-premium 3-Bedroom Executive residences:<br>• <strong>182.64 m² Suite:</strong> Executive Suite with 24/7 controlled gate security access.<br>• <strong>168.91 m² Suite:</strong> Elite High-Rise Suite with underground parking quarters.<br><br>Use the quick actions below to lock in a site walkthrough immediately!";
+        } else if (query.includes('2 bed') || query.includes('two bed')) {
+          displayBox.innerHTML = "<strong>AI Agent:</strong> Our 2-Bedroom catalog includes spaces from 111.37 m² to 134.85 m² featuring premium walk-in closets, soundproofing, and automatic backup generator setups. Contact us directly to view the floor plans!";
+        } else if (query.includes('price') || query.includes('cost') || query.includes('pricing')) {
+          displayBox.innerHTML = "<strong>AI Agent:</strong> For direct pricing sheets, discount structures, and current payment matrix plans, please tap the WhatsApp action button to receive the official Yusuf Properties financial catalog directly.";
+        } else {
+          displayBox.innerHTML = "<strong>AI Agent:</strong> I have recorded your question regarding \"" + inputField.value + "\". To get an instant walkthrough or precise specifications, please select one of our direct WhatsApp or Telegram routing channels below!";
+        }
+        inputField.value = ""; // clear input
+      }, 400);
+    }
+
+    // Allow user to trigger send on typing Enter key
+    document.getElementById('userChatInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        processAgentQuery();
+      }
+    });
+  </script>
 
 </body>
 </html>
