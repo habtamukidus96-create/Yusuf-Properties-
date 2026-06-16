@@ -499,49 +499,87 @@
       display: block;
     }
 
-    /* AI AGENT MODULE */
-    .ai-agent-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      width: 100%;
+    /* FLOATING BOTTOM-RIGHT AI AGENT (FAB SYSTEM) */
+    .ai-agent-fab-holder {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 2000;
     }
 
-    .ai-agent-container {
+    .ai-agent-toggle-input {
+      display: none;
+    }
+
+    .ai-agent-fab-btn {
+      width: 60px;
+      height: 60px;
+      background-color: #0f172a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      overflow: hidden; /* Keeps image perfectly round */
+    }
+
+    .ai-agent-fab-btn:hover {
+      background-color: #1e293b;
+      transform: scale(1.05);
+    }
+
+    .ai-chat-overlay-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: transparent;
+      z-index: 1998;
+      display: none;
+    }
+
+    .ai-agent-chat-card {
+      position: absolute;
+      bottom: 75px;
+      right: 0;
+      width: 340px;
       background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(15, 23, 42, 0.1);
       border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      padding: 20px;
+      display: none;
+      z-index: 1999;
     }
 
     .ai-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .ai-avatar {
-      width: 42px;
-      height: 42px;
-      background: #0f172a;
-      color: #ffffff;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      overflow: hidden;
     }
 
     .ai-title h4 {
-      font-size: 16px;
+      font-size: 14px;
       color: #0f172a;
       font-weight: 700;
     }
 
     .ai-title p {
-      font-size: 12px;
+      font-size: 11px;
       color: #24a1de;
       font-weight: 600;
     }
@@ -549,38 +587,48 @@
     .ai-chat-space {
       background: #f8f9fa;
       border-radius: 10px;
-      padding: 15px;
-      min-height: 100px;
+      padding: 12px;
+      min-height: 90px;
       margin-bottom: 15px;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.5;
       color: #475569;
       border: 1px solid rgba(15, 23, 42, 0.04);
     }
 
     .ai-suggested-prompts {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 8px;
     }
 
     .ai-prompt-btn {
       background: #ffffff;
       border: 1px solid rgba(15, 23, 42, 0.1);
-      padding: 8px 14px;
-      border-radius: 20px;
+      padding: 10px 14px;
+      border-radius: 8px;
       font-size: 12px;
       color: #0f172a;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
       font-weight: 600;
+      text-align: left;
     }
 
     .ai-prompt-btn:hover {
       background: #0f172a;
       color: #ffffff;
       border-color: #0f172a;
+    }
+
+    /* Show chat platform configuration when checked */
+    .ai-agent-toggle-input:checked ~ .ai-agent-chat-card {
+      display: block;
+    }
+
+    .ai-agent-toggle-input:checked ~ .ai-chat-overlay-backdrop {
+      display: block;
     }
 
     /* ABOUT US SECTION */
@@ -840,6 +888,15 @@
       .footer-logo-brand {
         align-items: center;
       }
+
+      .ai-agent-fab-holder {
+        bottom: 15px;
+        right: 15px;
+      }
+      .ai-agent-chat-card {
+        width: 290px;
+        right: 0;
+      }
     }
   </style>
 </head>
@@ -889,7 +946,7 @@
 
   <main class="hero-section" id="home">
     <div class="hero-image-container">
-      <img src="headshot.jpg" alt="Yusuf Properties Showcase Portfolio" class="hero-img">
+      <img src="headshot.jpg" alt="Yusuf Properties Portfolio Frame" class="hero-img">
     </div>
     
     <div class="hero-content">
@@ -907,8 +964,9 @@
 
     <div class="listings-grid">
       
+      <!-- PROPERTY 1 -->
       <div class="property-card">
-        <img src="property1.jpg" alt="Premium Suite 182.64m²" class="property-img">
+        <img src="property1.jpg" alt="Premium Asset 182.64m²" class="property-img">
         <div class="property-info">
           <h4 class="property-title">Luxury 3 Bedroom Executive Suite</h4>
           <p class="property-details">Expansive premium layout showcasing high-end architectural engineering solutions.</p>
@@ -937,8 +995,9 @@
         </div>
       </div>
 
+      <!-- PROPERTY 2 -->
       <div class="property-card">
-        <img src="property2.jpg" alt="Premium Residence 168.91m²" class="property-img">
+        <img src="property2.jpg" alt="Premium Asset 168.91m²" class="property-img">
         <div class="property-info">
           <h4 class="property-title">Elite 3 Bedroom High-Rise Suite</h4>
           <p class="property-details">Spacious modern urban retreat with beautiful master quarters and scenic exposures.</p>
@@ -967,8 +1026,9 @@
         </div>
       </div>
 
+      <!-- PROPERTY 3 -->
       <div class="property-card">
-        <img src="property3.jpg" alt="Modern Flat 81.55m²" class="property-img">
+        <img src="property3.jpg" alt="Premium Asset 81.55m²" class="property-img">
         <div class="property-info">
           <h4 class="property-title">Urban Minimalist 1 Bedroom Studio</h4>
           <p class="property-details">Perfectly calibrated layout designed for high efficiency and metropolitan luxury.</p>
@@ -1003,8 +1063,9 @@
     
     <div class="hidden-listings-wrapper">
       
+      <!-- PROPERTY 4 -->
       <div class="property-card">
-        <img src="property4.jpg" alt="Modern Suite 81.74m²" class="property-img">
+        <img src="property4.jpg" alt="Premium Asset 81.74m²" class="property-img">
         <div class="property-info">
           <h4 class="property-title">Contemporary 1 Bedroom Flat</h4>
           <p class="property-details">Sophisticated single-tier apartment balancing deep light integration with optimal scaling.</p>
@@ -1025,8 +1086,9 @@
         </div>
       </div>
 
+      <!-- PROPERTY 5 -->
       <div class="property-card">
-        <img src="property5.jpg" alt="Premium Flat 134.85m²" class="property-img">
+        <img src="property5.jpg" alt="Premium Asset 134.85m²" class="property-img">
         <div class="property-info">
           <h4 class="property-title">Luxury 2 Bedroom Modern Core Flat</h4>
           <p class="property-details">Beautiful high-ceiling lifestyle property located inside premium regional zoning sectors.</p>
@@ -1047,8 +1109,9 @@
         </div>
       </div>
 
+      <!-- PROPERTY 6 -->
       <div class="property-card">
-        <img src="property6.jpg" alt="Premium Apartment 111.37m²" class="property-img">
+        <img src="property6.jpg" alt="Premium Asset 111.37m²" class="property-img">
         <div class="property-info">
           <h4 class="property-title">Executive 2 Bedroom Master Residence</h4>
           <p class="property-details">Stylized open-concept floor layout offering perfect family spaces and fine detailing.</p>
@@ -1074,26 +1137,6 @@
     <label for="view-more-trigger" class="btn-view-more-label">View More Listings</label>
   </section>
 
-  <section class="ai-agent-section">
-    <div class="ai-agent-container">
-      <div class="ai-header">
-        <div class="ai-avatar"><i class="fas fa-robot"></i></div>
-        <div class="ai-title">
-          <h4>YP Real Estate Assistant</h4>
-          <p>AI Concierge Agent • Online</p>
-        </div>
-      </div>
-      <div class="ai-chat-space">
-        Hello! I am your automated premium property concierge. I can instantly assist you with specific inquiries regarding pricing models, dynamic square footage alignments, or connect you with premium closing guidance. Click an item below to begin:
-      </div>
-      <div class="ai-suggested-prompts">
-        <a href="https://wa.me/251983796622?text=Hello,%20I'm%20interested%20in%20the%203%20Bedroom%20182.64m²%20apartment." target="_blank" class="ai-prompt-btn">Inquire about 182.64 m² Suite</a>
-        <a href="https://wa.me/251983796622?text=Hello,%20I%20want%20to%20receive%20the%20pricing%20catalog%20for%20the%201%20Bedroom%20apartments." target="_blank" class="ai-prompt-btn">Request 1 Bedroom pricing details</a>
-        <a href="https://t.me/+251983796622" target="_blank" class="ai-prompt-btn">Schedule an architectural site walkthrough</a>
-      </div>
-    </div>
-  </section>
-
   <section class="about-section" id="about">
     <div class="about-split-container">
       <h4>About Yusuf Properties</h4>
@@ -1114,6 +1157,40 @@
       </div>
     </div>
   </footer>
+
+  <!-- FLOATING BOTTOM-RIGHT AI AGENT CONCIERGE -->
+  <div class="ai-agent-fab-holder">
+    <input type="checkbox" id="ai-agent-toggle" class="ai-agent-toggle-input">
+    
+    <!-- Backdrop to close card when user clicks anywhere outside -->
+    <label for="ai-agent-toggle" class="ai-chat-overlay-backdrop"></label>
+
+    <!-- Circular Avatar Button -->
+    <label for="ai-agent-toggle" class="ai-agent-fab-btn">
+      <img src="headshot.jpg" alt="Yusuf Properties AI Agent" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    </label>
+
+    <div class="ai-agent-chat-card">
+      <div class="ai-header">
+        <!-- Matching Avatar Inside Chat Header -->
+        <div class="ai-avatar">
+          <img src="headshot.jpg" alt="Agent Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="ai-title">
+          <h4>Yusuf Properties Assistant</h4>
+          <p>AI Concierge Agent • Online</p>
+        </div>
+      </div>
+      <div class="ai-chat-space">
+        Hello! I am your automated premium property concierge. I can instantly assist you with specific inquiries regarding pricing models, dynamic square footage alignments, or connect you with premium closing guidance. Select an option below to start:
+      </div>
+      <div class="ai-suggested-prompts">
+        <a href="https://wa.me/251983796622?text=Hello,%20I'm%20interested%20in%20the%203%20Bedroom%20182.64m²%20apartment." target="_blank" class="ai-prompt-btn"><i class="fab fa-whatsapp"></i> Inquire about 182.64 m² Suite</a>
+        <a href="https://wa.me/251983796622?text=Hello,%20I%20want%20to%20receive%20the%20pricing%20catalog%20for%20the%201%20Bedroom%20apartments." target="_blank" class="ai-prompt-btn"><i class="fab fa-whatsapp"></i> Request 1 Bed pricing catalog</a>
+        <a href="https://t.me/+251983796622" target="_blank" class="ai-prompt-btn"><i class="fab fa-telegram-plane"></i> Schedule site walkthrough</a>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
